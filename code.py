@@ -7,6 +7,7 @@
 import stage
 import ugame
 
+
 def game_scene ():
 # this function is the main game game_scene
  
@@ -14,7 +15,7 @@ def game_scene ():
  print("Hello, World!")
 
     # repeat forever, game loop
-  While True:
+  while True:
     pass # just a placeholder for now
 
 
