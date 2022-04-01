@@ -13,7 +13,7 @@ def game_scene ():
  print("Hello, World!")
 
     # repeat forever, game loop
-    while True:
+  while True:
     pass # just a placeholder for now
 
 
