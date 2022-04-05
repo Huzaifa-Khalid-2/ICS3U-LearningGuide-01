@@ -7,6 +7,7 @@
 import ugame
 import stage
 
+
 def game_scene ():
     # this function is the main game game_scene
 
@@ -22,7 +23,7 @@ def game_scene ():
     # set the layers of all sprites, items show up in order
     game.layers = [background]
     # render all sprites
-    # most likely you will only render the background once per game scene 
+    # most likely you will only render the background once per game scene
     game.render_block()
 
     # repeat forever, game loop
