@@ -27,12 +27,12 @@ def game_scene ():
     # set the layers of all sprites, items show up in order
     game.layers = [ship] + [background]
     # render all sprites
-    # most likely you will only render the background once per game scene 
+    # most likely you will only render the background once per game scene
     game.render_block()
 
     # repeat forever, game loop
     while True:
-        # get user input 
+        # get user input
         
         # update game logic
         
