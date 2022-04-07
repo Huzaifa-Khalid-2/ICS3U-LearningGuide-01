@@ -18,7 +18,6 @@ def game_scene ():
     #   and  set the frame rate to 60fps
     background = stage.Grid(image_bank_background, 10, 8)
 
-
     ship = stage.Sprite(image_bank_sprites, 5, 75, 66)
 
     # create a stage for the background to show up on
@@ -51,7 +50,6 @@ def game_scene ():
             ship.move(ship.x, ship.y - 1)
         if keys & ugame.K_DOWN:
             ship.move(ship.x, ship.y + 1)
- 
 
         # redreaw Sprites
         game.render_sprites([ship])
