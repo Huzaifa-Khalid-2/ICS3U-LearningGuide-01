@@ -17,8 +17,8 @@ def game_scene ():
     # set the background to image 0 in the image Bank
     #   and  set the frame rate to 60fps
     background = stage.Grid(image_bank_background, 10, 8)
-    
-    
+
+
     ship = stage.Sprite(image_bank_sprites, 5, 75, 66)
 
     # create a stage for the background to show up on
@@ -34,7 +34,7 @@ def game_scene ():
     while True:
         # get user input
         keys = ugame.buttons.get_pressed()
-        
+
         if keys & ugame.K_X:
             print("A")
         if keys & ugame.K_O:
@@ -56,6 +56,7 @@ def game_scene ():
         # redreaw Sprites
         game.render_sprites([ship])
         game.tick()
+
 
 if __name__ == "__main__":
     game_scene()
