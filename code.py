@@ -8,13 +8,13 @@ import stage
 import ugame
 
 
-def game_scene ():
+def game_scene():
     # this function is the main game game_scene
 
     # image banks for CircuitPython
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
-    
+
     # set the background to image 0 in the image Bank
     #   and  set the frame rate to 60fps
     background = stage.Grid(image_bank_background, 10, 8)
