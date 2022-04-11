@@ -4,9 +4,10 @@
 # Created on: March 2022
 # This program is the "Space Aliens" program onn the PyBadge
 
+import constants
+
 import stage
 import ugame
-
 
 def game_scene():
     # this function is the main game game_scene
@@ -17,13 +18,13 @@ def game_scene():
 
     # set the background to image 0 in the image Bank
     #   and  set the frame rate to 60fps
-    background = stage.Grid(image_bank_background, 10, 8)
+    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
 
-    ship = stage.Sprite(image_bank_sprites, 5, 75, 66)
+    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
 
     # create a stage for the background to show up on
     #   and set the frame rate to 60fps
-    game = stage.Stage(ugame.display, 60)
+    game = stage.Stage(ugame.display, constants.FPS)
     # set the layers of all sprites, items show up in order
     game.layers = [ship] + [background]
     # render all sprites
@@ -36,21 +37,29 @@ def game_scene():
         keys = ugame.buttons.get_pressed()
 
         if keys & ugame.K_X:
-            print("A")
+            pass
         if keys & ugame.K_O:
-            print("B")
+            pass
         if keys & ugame.K_START:
-            print("Start")
+            pass
         if keys & ugame.K_SELECT:
-            print("Select")
+            pass
         if keys & ugame.K_RIGHT:
-            ship.move(ship.x + 1, ship.y)
+            if ship.x <= constants.SCREEN_X - constants.SPRITE_SIZE:
+                ship.move(ship.x + 1, ship.y)
+            else:
+                ship.move(constants.SCREEN_X -  constants.SPRITE_SIZE, ship.y)
+
         if keys & ugame.K_LEFT:
-            ship.move(ship.x - 1, ship.y)
+            if ship.x >= 0:
+                ship.move(ship.x - 1, ship.y)
+            else:
+                ship.move(0, ship.y)
+
         if keys & ugame.K_UP:
-            ship.move(ship.x, ship.y - 1)
+            pass
         if keys & ugame.K_DOWN:
-            ship.move(ship.x, ship.y + 1)
+            pass
 
         # redreaw Sprites
         game.render_sprites([ship])
