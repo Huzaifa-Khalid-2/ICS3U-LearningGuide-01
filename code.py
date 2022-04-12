@@ -9,6 +9,7 @@ import constants
 import stage
 import ugame
 
+
 def game_scene():
     # this function is the main game game_scene
 
@@ -18,9 +19,13 @@ def game_scene():
 
     # set the background to image 0 in the image Bank
     #   and  set the frame rate to 60fps
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(
+        image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
+    )
 
-    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
+    ship = stage.Sprite(
+        image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    )
 
     # create a stage for the background to show up on
     #   and set the frame rate to 60fps
@@ -48,7 +53,7 @@ def game_scene():
             if ship.x <= constants.SCREEN_X - constants.SPRITE_SIZE:
                 ship.move(ship.x + 1, ship.y)
             else:
-                ship.move(constants.SCREEN_X -  constants.SPRITE_SIZE, ship.y)
+                ship.move(constants.SCREEN_X - constants.SPRITE_SIZE, ship.y)
 
         if keys & ugame.K_LEFT:
             if ship.x >= 0:
