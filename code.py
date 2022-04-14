@@ -38,10 +38,10 @@ def game_scene():
     )
 
     alien = stage.Sprite(
-        image_bank_sprites, 
+        image_bank_sprites,
         9,
         int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2),
-        16
+        16,
     )
 
     # create a stage for the background to show up on
@@ -79,7 +79,6 @@ def game_scene():
         if keys & ugame.K_START != 0:
             print("Select")
 
-
         if keys & ugame.K_RIGHT != 0:
             if ship.x < (constants.SCREEN_X - constants.SPRITE_SIZE):
                 ship.move((ship.x + constants.SPRITE_MOVEMENT_SPEED), ship.y)
@@ -101,7 +100,7 @@ def game_scene():
         # play sound if A was just button_just_pressed
         if a_button == constants.button_state["button_just_pressed"]:
             sound.play(pew_sound)
-            
+
         # redraw Sprites
         game.render_sprites([ship] + [alien])
         game.tick()
