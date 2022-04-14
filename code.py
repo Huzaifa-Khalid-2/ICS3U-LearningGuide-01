@@ -9,6 +9,7 @@ import constants
 import stage
 import ugame
 
+
 def game_scene():
     # this function is the main game game_scene
 
@@ -23,7 +24,7 @@ def game_scene():
     select_button = constants.button_state["button_up"]
 
     # get sound ready
-    pew_sound = open("pew.wav", 'rb')
+    pew_sound = open("pew.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
@@ -32,11 +33,16 @@ def game_scene():
     #   and  sie (10x8 tiles of size 16x16)
     background = stage.Grid(image_bank_background, 10, 8)
 
-    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
+    ship = stage.Sprite(
+        image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    )
 
-    alien = stage.Sprite(image_bank_sprites, 9,
-                     int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2),
-                    16)
+    alien = stage.Sprite(
+        image_bank_sprites, 
+        9,
+        int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2),
+        16
+    )
 
     # create a stage for the background to show up on
     #   and set the frame rate to 60fps
@@ -53,7 +59,7 @@ def game_scene():
         keys = ugame.buttons.get_pressed()
 
         # A button fire
-        if keys & ugame.K_O != 0: 
+        if keys & ugame.K_O != 0:
             if a_button == constants.button_state["button_up"]:
                 a_button = constants.button_state["button_just_pressed"]
             elif a_button == constants.button_state["button_just_pressed"]:
@@ -64,7 +70,7 @@ def game_scene():
                 else:
                     a_button = constants.button_state["button_up"]
             # B button
-            
+
             # B button
         if keys & ugame.K_X != 0:
             pass
@@ -72,7 +78,8 @@ def game_scene():
             print("Start")
         if keys & ugame.K_START != 0:
             print("Select")
-            
+
+
         if keys & ugame.K_RIGHT != 0:
             if ship.x < (constants.SCREEN_X - constants.SPRITE_SIZE):
                 ship.move((ship.x + constants.SPRITE_MOVEMENT_SPEED), ship.y)
