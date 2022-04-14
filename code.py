@@ -5,7 +5,6 @@
 # This program is the "Space Aliens" program onn the PyBadge
 
 import constants
-
 import stage
 import ugame
 
