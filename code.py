@@ -33,7 +33,7 @@ def menu_scene():
 
     # sets the background to image 0 in the image bank
     background = stage.Grid(
-        image_bank_mt_background, constants.SCREEN_X,constants.SCREEN_Y
+        image_bank_mt_background, constants.SCREEN_X, constants.SCREEN_Y
     )
 
     # create a stage for the background to show up on
@@ -53,7 +53,7 @@ def menu_scene():
         # start button selected
         if keys & ugame.K_START != 0:
             game_scene()
-            
+
         # update game logic
         game.tick()  # wait until refresh rate finishes
 
