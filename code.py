@@ -13,23 +13,25 @@ import ugame
 
 def splash_scene():
     # this function is the splash scene
-    
+
     # get sound ready
-    coin_sound = open("coin.wav", 'rb')
+    coin_sound = open("coin.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
     sound.play(coin_sound)
-    
+
     # an image bank for CircuitPython
     image_bank_mt_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
-    
+
     # create a stage for the background to show up on
     #   and set the frame rate to 60fps
     # sets the background to image 0 in the image bank
-    background = stage.Grid(image_bank_mt_background, constants.SCREEN_X, constants.SCREEN_Y)
-    
-    # used this program to split the image into tile: 
+    background = stage.Grid(
+        image_bank_mt_background, constants.SCREEN_X, constants.SCREEN_Y
+    )
+
+    # used this program to split the image into tile:
     #   https://ezgif.com/sprite-cutter/ezgif-5-818cdbcc3f66.png
     background.tile(2, 2, 0)  # blank white
     background.tile(3, 2, 1)
@@ -58,8 +60,8 @@ def splash_scene():
     background.tile(5, 5, 14)
     background.tile(6, 5, 0)
     background.tile(7, 5, 0)  # blank white
-    
-    # create a stage for the background to show up on 
+
+    # create a stage for the background to show up on
     #   and set the frame rate to 60fps
     game = stage.Stage(ugame.display, constants.FPS)
     # set the layers, items show up in order
@@ -67,12 +69,14 @@ def splash_scene():
     # render the background and intial location of sprite list
     # most likely you will only render background once per scene
     game.render_block()
-    
+
     # repeat forever, game loop
     while True:
         # Wait for 2 seconds
         time.sleep(2.0)
         menu_scene()
+
+
 def menu_scene():
     # this function is the main game game_scene
 
@@ -120,6 +124,7 @@ def menu_scene():
 
         # update game logic
         game.tick()  # wait until refresh rate finishes
+
 
 def game_scene():
     # this function is the main game game_scene
