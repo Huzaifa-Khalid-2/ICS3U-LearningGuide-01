@@ -6,8 +6,8 @@
 
 import constants
 import random
-import stage
 import time
+import stage
 import ugame
 
 
