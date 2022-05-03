@@ -276,14 +276,17 @@ def game_scene():
                                          lasers[laser_number].x + 11, lasers[laser_number].y + 12,
                                          aliens[alien_number].x + 1, aliens[alien_number].y,
                                          aliens[alien_number].x + 15, aliens[alien_number].y + 15):
-                           # you hit an alien
-                           aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
-                           lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
-                           sound.stop()
-                           sound.play(boom_sound)
-                           show_alien()
-                           show_alien()
-                           score = score + 1
+                            # you hit an alien
+                            aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            boom_sound = open("boom.wav", "rb")
+                            sound = ugame.audio
+                            sound.stop()
+                            sound.mute(False)
+                            sound.play(boom_sound)
+                            show_alien()
+                            show_alien()
+                            score = score + 1
 
         # redraw Sprite
         game.render_sprites(aliens + lasers + [ship])
