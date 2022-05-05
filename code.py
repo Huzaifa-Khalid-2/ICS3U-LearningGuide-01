@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Created by: Huzaifa Khalid
-# Created on: April 2022
+# Created on: May 2022
 # This program is the "Space Aliens" program on the PyBadge
 
 import constants
@@ -20,6 +20,7 @@ def splash_scene():
     sound.stop()
     sound.mute(False)
     sound.play(coin_sound)
+
 
     # an image bank for circuit python
     image_bank_mt_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
@@ -123,7 +124,16 @@ def menu_scene():
 
 def game_scene():
     # this function is the main game game_scene
-    
+   
+    # for score
+    score = 0
+   
+    score_text = stage.Text(width=29, height=14)
+    score_text.clear()
+    score_text.cursor(0,0)
+    score_text.move(1,1)
+    score_text.text("Score: {0}".format(score))
+   
     def show_alien():
         # this function takes an alien from off screen and moves it on screen
         for alien_number in range(len(aliens)):
@@ -132,15 +142,6 @@ def game_scene():
                                                         constants.SCREEN_X - constants.SPRITE_SIZE),
                                          constants.OFF_TOP_SCREEN)
                 break
-        # for score
-        score = 0
-
-        score_text = stage.Text(width=29, height=14)
-        score_text.clear()
-        score_text.cursor(0,0)
-        score_text.move(1,1)
-        score_text.text("Score: {0}".format(score))
-
 
     # image banks for CircuitPython
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
@@ -171,7 +172,7 @@ def game_scene():
     ship = stage.Sprite(
         image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
     )
-    
+   
     # create list of lasers for when we shoot
     aliens = []
     for alien_number in range(constants.TOTAL_NUMBER_OF_ALIENS):
@@ -181,7 +182,7 @@ def game_scene():
         aliens.append(a_single_alien)
     # place 1 alien on the screen
     show_alien()
-    
+   
     # create list of lasers for when we shoot
     lasers = []
     for laser_number in range(constants.TOTAL_NUMBER_OF_LASERS):
@@ -252,7 +253,7 @@ def game_scene():
                     lasers[laser_number].move(ship.x, ship.y)
                     sound.play(pew_sound)
                     break
-        
+       
         # each frame move the lasers, that have been fired up
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
@@ -281,15 +282,15 @@ def game_scene():
                     score_text.move(1,1)
                     score_text.text("Score: {0}".format(score))
 
-        # each frame check if any of the lasers are touching any of the lasers
+        # each frame check if any of the lasers are touching any of the aliens
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
-                for alien_number in range(len(lasers)):
+                for alien_number in range(len(aliens)):
                     if aliens[alien_number].x > 0:
                         if stage.collide(lasers[laser_number].x + 6, lasers[laser_number].y + 2,
-                                         lasers[laser_number].x + 11, lasers[laser_number].y + 12,
-                                         aliens[alien_number].x + 1, aliens[alien_number].y,
-                                         aliens[alien_number].x + 15, aliens[alien_number].y + 15):
+                                        lasers[laser_number].x + 11, lasers[laser_number].y + 12,
+                                        aliens[alien_number].x + 1, aliens[alien_number].y,
+                                        aliens[alien_number].x + 15, aliens[alien_number].y + 15):
                             # you hit an alien
                             aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
                             lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
@@ -304,7 +305,7 @@ def game_scene():
                             score_text.clear()
                             score_text.cursor(0,0)
                             score_text.move(1,1)
-                            score_text.text("Score: {0}".format(score))
+                            score_text.text('Score: {0}'.format(score))
 
         # redraw Sprite
         game.render_sprites(aliens + lasers + [ship])
