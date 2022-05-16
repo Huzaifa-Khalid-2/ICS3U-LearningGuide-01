@@ -4,12 +4,13 @@
 # Created on: May 2022
 # This program is the "Space Aliens" program on the PyBadge
 
-import constants
-import random
-import stage
-import time
 import ugame
+import stage
+import random
+import time
+import supervisor
 
+import constants
 
 def splash_scene():
     # this function is the splash scene
@@ -133,7 +134,8 @@ def game_scene():
     score_text.cursor(0,0)
     score_text.move(1,1)
     score_text.text("Score: {0}".format(score))
-   
+    crash_sound = open("crash.wav", "rb")
+
     def show_alien():
         # this function takes an alien from off screen and moves it on screen
         for alien_number in range(len(aliens)):
@@ -306,10 +308,72 @@ def game_scene():
                             score_text.cursor(0,0)
                             score_text.move(1,1)
                             score_text.text('Score: {0}'.format(score))
-
+        # each frame check if any aliens are touching the space ship
+        for alien_number in range(len(aliens)):
+            if aliens[alien_number].x > 0:
+                if stage.collide(aliens[alien_number].x + 1, aliens[alien_number].y,
+                                 aliens[alien_number].x + 15, aliens[alien_number].y + 15,
+                                 ship.x, ship.y,
+                                 ship.x + 15, ship.y + 15):
+                    # alien hit the ship
+                    sound.stop()
+                    sound.play(crash_sound)
+                    time.sleep(3.0)
+                    game_over_scene(score)
         # redraw Sprite
         game.render_sprites(aliens + lasers + [ship])
         game.tick()  # wait until refresh rate finishes
+
+def game_over_scene(final_score):
+    # this function is the game over scene
+    
+    # turn off sound from last scene
+    sound = ugame.audio
+
+    # image banks for CircuitPython
+    image_bank_2 = stage.Bank.from_bmp16("mt_game_studio.bmp")
+    
+    # sets the background to image 0 in the image bank
+    background = stage.Grid(image_bank_2, constants.SCREEN_GRID_X,
+                            constants.SCREEN_GRID_Y)
+
+    # add text objects
+    text = []
+    text1 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text1.move(22, 20)
+    text1.text("Final Score: {:0>2d}".format(final_score))
+    text.append(text1)
+
+    text2 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text2.move(43, 60)
+    text2.text("GAME OVER")
+    text.append(text2)
+
+    text3 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text3.move(32,110)
+    text3.text("PRESS SELECT")
+    text.append(text3)
+
+    # create a stage for the background to show up on
+    #   and set the frame rate to 60fps
+    game = stage.Stage(ugame.display, constants.FPS)
+    # set the layers of all sprites, items show up in order
+    game.layers = text + [background]
+    # render all sprites
+    #   most likely you will only render the background once per game game_scene
+    game.render_block()
+
+    # repeat forever, game loop
+    while True:
+        # get user input
+        keys = ugame.buttons.get_pressed()
+
+        # Start button selected
+        if keys & ugame.K_SELECT != 0:
+            supervisor.reload()
+
+        # update game logic
+        game.tick()
 
 
 if __name__ == "__main__":
